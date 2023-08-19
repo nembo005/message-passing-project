@@ -1,0 +1,42 @@
+# Specifies the version of the Swagger/OpenAPI specification.
+swagger: '2.0'
+
+# Provides metadata about the API, including its version and title.
+info:
+  version: '1.0'                # Version of the API.
+  title: 'Get Location by ID API' # Name of the API.
+
+# Defines available paths and HTTP methods for the API.
+paths:
+  /locations/{location_id}:      # The URL path for the endpoint, with a variable "location_id".
+    get:                         # The HTTP method for this endpoint.
+      tags:                      # Tags that categorize the operation.
+      - 'Locations'
+      description: 'Retrieve a location by its unique ID' # A brief summary of the endpoint.
+      parameters:                # Lists parameters applicable for the operation.
+      - name: 'location_id'      # Name of the parameter.
+        in: 'path'               # Location of the parameter; 'path' indicates it's part of the URL.
+        description: 'Unique identifier of the location to fetch' # Description of the parameter.
+        required: true           # Indicates if the parameter is mandatory.
+        type: 'integer'          # Data type of the parameter.
+      responses:                 # Expected responses for the operation.
+        '200':                   # HTTP status code.
+          description: 'Successfully fetched the location details' # Description of the response.
+          schema:                # Specifies the structure of the response data.
+            $ref: '#/definitions/Location'  # Reference to a schema definition.
+
+# Defines the schemas for the data used by the API.
+definitions:
+  Location:                     # Schema name.
+    type: 'object'              # Data type.
+    properties:                 # Lists properties of the object.
+      id:                       # Property name.
+        type: 'integer'         # Data type of the property.
+      person_id:
+        type: 'integer'
+      wkt_shape:
+        type: 'string'
+      creation_time:            # Property for date and time.
+        type: 'string'
+        format: 'date-time'     # Specifies the string is formatted as a date-time.
+

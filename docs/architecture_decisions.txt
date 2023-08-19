@@ -1,0 +1,36 @@
+### Architecture Decision
+
+## Communication Techniques Evaluated
+
+1. RESTful APIs: A universal standard, RESTful APIs offer simplicity and are ideal for operations that involve well-defined entities.
+Justification: With moderate traffic expected on the Person service, REST is both efficient and aligns well with HTTP's widely accepted protocols.
+
+2. Kafka: Recognized for its capability in handling real-time, high-volume data, making it an excellent choice for real-time data feeds.
+Justification: Kafka's ability to efficiently manage extensive data streams is pivotal, especially for location data which is expected to be substantial.
+
+3. gRPC: A robust communication protocol known for high-performance especially in scenarios with large data volumes and concurrent requests.
+Justification: With potential high traffic for location data, gRPC, with its support for HTTP/2, provides a more efficient data collection approach compared to the traditional HTTP/1.1.
+
+## Module Descriptions & Interconnectivity
+
+1. Person Microservice: Handles operations related to Person entities.
+Communication: Uses RESTful API for CRUD operations. This simplicity is beneficial for managing and querying person records.
+
+2. Location Microservice (Data Ingestion): Primarily ingests location data.
+Communication: It harnesses gRPC for its high-performance data ingestion. Post ingestion, it acts as a Kafka producer, forwarding the location data to a Kafka topic.
+
+3. Location Microservice (Data Storage): Manages and stores the ingested location data.
+Communication: As a Kafka consumer, it collects location data from the Kafka topic for storage.
+
+4. Connection Microservice: Determines connections between individuals using location data.
+Communication: This service integrates with Kafka for location data and the RESTful API of the Person Microservice for person data.
+
+## Rationale
+
+The architecture decisions are rooted in the UdaConnect business needs:
+
+1. Timeliness & Budget: Designed as an MVP, the architecture zeroes in on core functionalities, adhering to the two-week launch timeframe and limited budget.
+
+2. Scalability: Services are containerized ensuring easy deployment and scalability. Kafka, integral to the design, specifically addresses the anticipated large volumes of location data, ensuring efficient data handling.
+
+3. Cost-Efficiency: The design eliminates any extraneous features, focusing on essentials. This approach ensures reduced developmental time and costs.

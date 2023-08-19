@@ -1,0 +1,51 @@
+# Indicates the version of the Swagger/OpenAPI specification.
+swagger: '2.0'
+
+# Provides metadata about the API, like its version and title.
+info:
+  version: '1.0'                # Version of the API.
+  title: 'Create Location API'  # Name of the API.
+
+# Defines the available paths and HTTP methods for the API.
+paths:
+  /locations:                   # The URL path for the endpoint.
+    post:                       # The HTTP method for this endpoint.
+      tags:                     # Tags help group operations by resources or nature.
+      - 'Locations'
+      description: 'Create a new location' # A brief summary of the endpoint.
+      parameters:               # Lists parameters that are applicable for this operation.
+      - in: 'body'              # Location of the parameter (e.g., "path", "query", "body").
+        name: 'body'            # Name of the parameter.
+        required: true          # Indicates if the parameter is required.
+        schema:                 # Specifies the structure of the parameter data.
+          $ref: '#/definitions/NewLocation' # A reference to a schema definition.
+      responses:                # Expected responses for this operation.
+        '200':                  # HTTP status code.
+          description: 'Location created successfully'   # Description of the response.
+          schema:              # Specifies the structure of the response data.
+            $ref: '#/definitions/Location'   # A reference to a schema definition.
+
+# Defines the schemas for the data used by the API.
+definitions:
+  NewLocation:                 # Schema name.
+    type: 'object'             # Data type.
+    properties:                # Lists properties of the object.
+      person_id:               # Property name.
+        type: 'integer'        # Data type of the property.
+        required: true         # Indicates if the property is required.
+      wkt_shape:               # Another property.
+        type: 'string'
+        required: true
+  Location:                    # Another schema.
+    type: 'object'
+    properties:
+      id:
+        type: 'integer'
+      person_id:
+        type: 'integer'
+      wkt_shape:
+        type: 'string'
+      creation_time:           # Property for date and time.
+        type: 'string'
+        format: 'date-time'    # Specifies that the string is formatted as a date-time.
+

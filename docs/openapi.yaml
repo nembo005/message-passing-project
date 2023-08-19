@@ -1,0 +1,181 @@
+openapi: 3.0.1
+info:
+  title: Udaconnect
+  version: "1.0"
+
+servers:
+  - url: 'http://192.168.49.2:31003'
+    description: Connection Management API Server
+  - url: 'http://192.168.49.2:31002'
+    description: Location Management API Server
+  - url: 'http://192.168.49.2:30004'
+    description: Person Management API Server
+
+paths:
+  /api/:
+    get:
+      tags:
+        - Meta
+      summary: Retrieve API Information
+      responses:
+        '200':
+          description: API information retrieved successfully
+
+  /connections/:
+    get:
+      tags:
+        - Connection
+      summary: Retrieve a List of All Connections
+      responses:
+        '200':
+          description: Successfully fetched list of all connections
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Connection'
+    post:
+      tags:
+        - Connection
+      summary: Add a New Connection Record
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Connection'
+      responses:
+        '201':
+          description: Connection record created successfully
+
+  /persons/1/connection:
+    get:
+      tags:
+        - Connection
+      summary: Fetch Connection Data for a Specific Person
+      parameters:
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+        - $ref: '#/components/parameters/Distance'
+      responses:
+        '200':
+          description: Connection data retrieved successfully for the specified person
+
+  /api/locations:
+    post:
+      summary: Add a New Location Record
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+      responses:
+        '201':
+          description: Location record created successfully
+
+  /api/locations/{location_id}:
+    get:
+      summary: Fetch a Location Record by ID
+      parameters:
+        - name: location_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Location record retrieved successfully by ID
+
+  /api/persons:
+    get:
+      summary: Retrieve a List of All Persons
+      responses:
+        '200':
+          description: Successfully fetched list of all persons
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Person'
+    post:
+      summary: Add a New Person Record
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Person'
+      responses:
+        '201':
+          description: Person record created successfully
+
+  /api/persons/{person_id}:
+    get:
+      summary: Fetch a Person Record by ID
+      parameters:
+        - name: person_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Person record retrieved successfully by ID
+
+components:
+  schemas:
+    Connection:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+
+    Person:
+      type: object
+      properties:
+        id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        dob:
+          type: date
+
+    Location:
+      type: object
+      properties:
+        id:
+          type: string
+        person_id:
+          type: integer
+        creation_time:
+          type: string
+        latitude:
+          type: float
+        longitude:
+          type: float
+
+  parameters:
+    StartDate:
+      name: start_date
+      in: query
+      schema:
+        type: string
+
+    EndDate:
+      name: end_date
+      in: query
+      schema:
+        type: string
+
+    Distance:
+      name: distance
+      in: query
+      schema:
+        type: integer
+

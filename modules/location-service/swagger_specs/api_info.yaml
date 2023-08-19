@@ -1,0 +1,23 @@
+# Indicates the version of the Swagger/OpenAPI specification. 2.0 is Swagger, 3.x is OpenAPI.
+swagger: '2.0'
+
+# Provides metadata about the API like its version and title.
+info:
+  version: '1.0'                # Version of the API.
+  title: 'API Information'      # Name of the API.
+
+# Defines the available paths and HTTP methods for the API.
+paths:
+  /api/:                        # The URL path for this endpoint.
+    get:                        # The HTTP method for this endpoint.
+      tags:                     # Tags help group operations by resources or nature.
+      - 'API Info'              
+      description: 'API information endpoint' # A brief summary of the endpoint.
+      responses:                # Expected responses for this operation.
+        '200':                  # HTTP status code.
+          description: 'Successful response'   # Description of the response.
+          schema:              # Specifies the structure of the response data.
+            type: 'object'     # The data type of the response. In this case, an object.
+            properties:        # Lists the properties of the object.
+              message:         # Property name.
+                type: 'string' # Data type of the property.

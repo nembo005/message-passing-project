@@ -1,0 +1,25 @@
+// Specifies the version of the Protocol Buffers language used in the file.
+syntax = "proto3";
+
+// Defines the package name for this service, it helps prevent naming conflicts between different services.
+package location;
+
+// Service definition for the LocationService, which exposes RPC methods.
+service LocationService {
+    // Defines an RPC method `SendLocation` that takes a LocationRequest message as input
+    // and returns a LocationResponse message.
+    rpc SendLocation(LocationRequest) returns (LocationResponse) {}
+}
+
+// Message definition for sending a location.
+message LocationRequest {
+    int32 person_id = 1;        // Unique identifier for the person associated with this location.
+    string creation_time = 2;  // Time of creation for this location record.
+    float latitude = 3;        // Latitude coordinate of the location.
+    float longitude = 4;       // Longitude coordinate of the location.
+}
+
+// Message definition for the response after sending a location.
+message LocationResponse {
+    string message = 1;  // A message indicating the status or result of the operation.
+}

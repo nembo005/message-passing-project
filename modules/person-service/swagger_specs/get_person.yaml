@@ -1,0 +1,42 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: 'Person Retrieval API'
+  description: 'APIs for retrieving person details based on their unique identifier.'
+
+paths:
+  /persons/{person_id}:
+    get:
+      tags:
+      - 'Persons'
+      summary: 'Retrieve a person using its ID'
+      description: 'Provides an endpoint to fetch details of a specific person based on a unique identifier.'
+      parameters:
+      - name: 'person_id'
+        in: 'path'
+        description: 'Unique identifier of the person to be retrieved.'
+        required: true
+        type: 'integer'
+      responses:
+        '200':
+          description: 'Details of the person retrieved successfully'
+          schema:
+            $ref: '#/definitions/Person'
+
+definitions:
+  Person:
+    description: 'Data structure representing the details of a person'
+    type: 'object'
+    properties:
+      id:
+        type: 'integer'
+        description: 'Unique identifier for the person'
+      first_name:
+        type: 'string'
+        description: 'First name of the person'
+      last_name:
+        type: 'string'
+        description: 'Last name of the person'
+      company_name:
+        type: 'string'
+        description: 'Company where the person is associated or employed'

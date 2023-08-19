@@ -1,0 +1,62 @@
+# Swagger specification version.
+swagger: '2.0'
+
+info:
+  # Version of the API.
+  version: '1.0'
+  # Title of the API.
+  title: 'Connection Operations'
+
+# API Paths and associated HTTP methods.
+paths:
+  # Endpoint for connections.
+  /connections/:
+    # POST method for creating a new connection.
+    post:
+      # Tags categorize the API operation.
+      tags:
+      - 'Connections'
+      # Short description of what this API operation does.
+      description: 'Establish a new connection'
+      # Parameters for the POST method.
+      parameters:
+      # The body parameter where the data for the new connection will be sent.
+      - in: 'body'
+        name: 'body'
+        required: true
+        schema:
+          $ref: '#/definitions/NewConnectionEntity'
+      # Responses for the POST method.
+      responses:
+        # Response for a successful operation.
+        '200':
+          description: 'Successfully created connection'
+          # The schema that defines the structure of the response.
+          schema:
+            $ref: '#/definitions/ConnectionEntity'
+
+# Definitions for different data structures used in the API.
+definitions:
+  # Schema for the new connection entity.
+  NewConnectionEntity:
+    type: 'object'
+    properties:
+      id:
+        type: 'string'
+        required: true
+      name:
+        type: 'string'
+        required: true
+
+  # Schema for the established connection entity.
+  ConnectionEntity:
+    type: 'object'
+    properties:
+      id:
+        type: 'string'
+        # Description for the id property.
+        description: 'Identifier for the connection'
+      name:
+        type: 'string'
+        # Description for the name property.
+        description: 'Details about the connection'

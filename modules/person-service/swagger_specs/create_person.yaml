@@ -1,0 +1,59 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: 'Person Management API'
+  description: 'APIs related to person management operations'
+
+paths:
+  /persons:
+    post:
+      tags:
+      - 'Persons'
+      summary: 'Create a new person'
+      description: 'Provides an endpoint to add a new person to the system.'
+      parameters:
+      - in: 'body'
+        name: 'body'
+        description: 'Person details to be added'
+        required: true
+        schema:
+          $ref: '#/definitions/NewPerson'
+      responses:
+        '200':
+          description: 'Person created successfully'
+          schema:
+            $ref: '#/definitions/Person'
+
+definitions:
+  NewPerson:
+    description: 'Details required to create a new person'
+    type: 'object'
+    properties:
+      first_name:
+        type: 'string'
+        description: 'First name of the person'
+        required: true
+      last_name:
+        type: 'string'
+        description: 'Last name of the person'
+        required: true
+      company_name:
+        type: 'string'
+        description: 'Company where the person is working'
+        required: true
+  Person:
+    description: 'Details of a person, including their ID'
+    type: 'object'
+    properties:
+      id:
+        type: 'integer'
+        description: 'Unique identifier for the person'
+      first_name:
+        type: 'string'
+        description: 'First name of the person'
+      last_name:
+        type: 'string'
+        description: 'Last name of the person'
+      company_name:
+        type: 'string'
+        description: 'Company where the person is working'

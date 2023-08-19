@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+// Defining the Location service and its messages
+package location;
+
+// Services
+service LocationService {
+    rpc SendLocation(LocationRequest) returns (LocationResponse);
+}
+
+// Messages
+message LocationRequest {
+    int32 person_id = 1;
+    string creation_time = 2;
+    float latitude = 3;
+    float longitude = 4;
+}
+
+message LocationResponse {
+    string message = 1;
+}
