@@ -153,16 +153,16 @@ Your architecture diagram should focus on the services and how they talk to one 
 
 ### Some Project's Commands
 
-## gRPC pb2 files generation command
-
-python -m grpc_tools.protoc -I./protos --python_out=./app/location --grpc_python_out=./app/location ./protos/location.proto
-
-## Starting Kafka in Kubernetes
+## Kafka
 
 To start Kafka within your Kubernetes cluster:
-1. Apply the Kafka configuration:
+1. Kafka application:
    kubectl apply -f kafka.yaml
-2. Ensure the Kafka pod is running:
+2. Kafka pod verification:
   kubectl get pods -l app=kafka
-3. Kafka service access within the cluster:
+3. Kafka service access:
   kafka-service:9092
+
+## gRPC pb2 files
+
+python -m grpc_tools.protoc -I./protos --python_out=./app/location --grpc_python_out=./app/location ./protos/location.proto
